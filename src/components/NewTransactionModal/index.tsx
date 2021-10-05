@@ -4,6 +4,7 @@ import closeImg from "../../images/assets/close.svg";
 import incomeImg from "../../images/assets/income.svg";
 import outcomeImg from "../../images/assets/outcome.svg";
 import { FormEvent, useState } from "react";
+import { api } from "../../services/api";
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -19,12 +20,12 @@ export function NewTransactionModal({
   const [category, setCategory] = useState("");
   const [type, setType] = useState("deposit");
 
-  
-
   function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    console.log(type, title, amount, category);
+    const data = { type, title, amount, category };
+
+    api.post("/transactions", data);
   }
 
   return (
@@ -46,13 +47,13 @@ export function NewTransactionModal({
         <input
           placeholder="Títutlo"
           value={title}
-          onChange={event => setTitle(event.target.value)}
+          onChange={(event) => setTitle(event.target.value)}
         />
         <input
           type="number"
           placeholder="Valor"
           value={amount}
-          onChange={event => setAmount(Number(event.target.value))}
+          onChange={(event) => setAmount(Number(event.target.value))}
         />
 
         <ContentButtons>
@@ -79,7 +80,7 @@ export function NewTransactionModal({
         <input
           placeholder="Categoria"
           value={category}
-          onChange={event => setCategory(event.target.value)}
+          onChange={(event) => setCategory(event.target.value)}
         />
         <button type="submit">Cadastrar</button>
       </Container>
