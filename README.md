@@ -1,2 +1,2 @@
-# revisao-ch1
+# Pokedex
 Em andamento
